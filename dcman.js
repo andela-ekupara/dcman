@@ -1,7 +1,8 @@
 (function() {
   'use strict';
   const express = require('express'),
-    bodyParser = require('body-parser'), 
+    bodyParser = require('body-parser'),
+    logger = require('morgan'),
     mongoose = require('mongoose'),
     config = require('./server/config/config');
 
@@ -13,10 +14,11 @@
     }
   });
 
-  var app = express();
-  var routes = require('./server/routes');
+  const app = express(),
+    routes = require('./server/routes');
 
   app.use(bodyParser.json());
+  app.use(logger('dev'));
   app.use(bodyParser.urlencoded({ extended: false }));
   routes(app);
 
